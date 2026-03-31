@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timestamp Converter - Unix Time Online</title>
+<meta name="description" content="Convert Unix timestamps to human-readable dates and back. Free online timestamp converter.">
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+<div class="max-w-2xl mx-auto px-4 py-10">
+  <h1 class="text-3xl font-bold text-gray-800 mb-2">Timestamp Converter</h1>
+  <p class="text-gray-500 mb-6">Convert Unix timestamps ↔ human dates instantly.</p>
+  <div class="bg-white rounded-xl shadow p-6 mb-4 space-y-6">
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-2">Current Unix Timestamp</label>
+      <div id="current" class="font-mono text-2xl text-blue-600"></div>
+    </div>
+    <hr>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-2">Unix Timestamp → Date</label>
+      <div class="flex gap-2">
+        <input id="ts_in" type="number" class="flex-1 border rounded px-3 py-2 font-mono text-sm" placeholder="e.g. 1711900800">
+        <button onclick="tsToDate()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Convert</button>
+      </div>
+      <div id="ts_out" class="mt-2 text-sm text-gray-700 font-mono"></div>
+    </div>
+    <hr>
+    <div>
+      <label class="block text-sm font-semibold text-gray-700 mb-2">Date → Unix Timestamp</label>
+      <div class="flex gap-2">
+        <input id="date_in" type="datetime-local" class="flex-1 border rounded px-3 py-2 text-sm">
+        <button onclick="dateToTs()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Convert</button>
+      </div>
+      <div id="date_out" class="mt-2 text-sm text-gray-700 font-mono"></div>
+    </div>
+  </div>
+  <p class="text-center text-gray-400 text-sm">Need custom tools? <a href="mailto:844332090@qq.com" class="text-blue-500 hover:underline">DM me</a></p>
+</div>
+<script>
+function updateCurrent() {
+  document.getElementById('current').textContent = Math.floor(Date.now()/1000);
+}
+setInterval(updateCurrent, 1000); updateCurrent();
+function tsToDate() {
+  const ts = parseInt(document.getElementById('ts_in').value);
+  if (!ts) return;
+  const d = new Date(ts * 1000);
+  document.getElementById('ts_out').innerHTML = `UTC: ${d.toUTCString()}<br>Local: ${d.toString()}`;
+}
+function dateToTs() {
+  const v = document.getElementById('date_in').value;
+  if (!v) return;
+  document.getElementById('date_out').textContent = Math.floor(new Date(v).getTime()/1000);
+}
+</script>
+</body>
+</html>
